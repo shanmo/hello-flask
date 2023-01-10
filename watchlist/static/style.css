@@ -6,7 +6,10 @@ body {
 }
 
 .avatar {
-    width: 80px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
 }
 
 nav ul {
@@ -102,14 +105,21 @@ input[name=year] {
     display: inline;
 }
 
-.imdb {
+.spotify {
     font-size: 12px;
     font-weight: bold;
-    color: black;
+    color: whitesmoke;
     text-decoration: none;
-    background: #F5C518;
+    background: black;
     border-radius: 5px;
     padding: 3px 5px;
+}
+
+.google {
+    background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: text;
+    -webkit-background-clip:text;
+    color: transparent;
 }
 
 .cafe {

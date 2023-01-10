@@ -11,22 +11,22 @@
 </head>
 <body>
     <h2>
-        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
         {{ user.name }}の播客
     </h2>
     <nav>
         <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('index') }}">节目列表</a></li>
             {% if current_user.is_authenticated %}
             <li><a href="{{ url_for('settings') }}">Settings</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}
-            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('login') }}">主播登录</a></li>
             {% endif %}
         </ul>
     </nav>
     {% block content %}{% endblock %}
     <footer>
+        <img alt="cafe" class="cafe" src="{{ url_for('static', filename='images/cafe.png') }}" title="cafe">
         <small>&copy; 2023 <a href="https://anchor.fm/poirot-cafe">波罗咖啡馆</a></small>
     </footer>
     {% with messages=get_flashed_messages() %}  {# 使用get_flashed_messages()方法获取消息#}

@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h2>
+    <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
+</h2>
+
+<p style="font-size:20px; color:burlywood; font-family:Arial; text-align: center">两位十年推理迷的聊天节目，真相只有一个，故事却有很多。<br>波罗咖啡馆，不止推理</p>
+
+<p>
+    播出平台：
+    <a href="https://www.xiaoyuzhoufm.com/podcast/636656e28ba1d6f3e83a6486">小宇宙</a>
+    <a href="https://music.163.com/radio/?id=982519215&userid=8105547625">网易云音乐</a>
+    <a href="https://podcasts.apple.com/us/podcast/%E6%B3%A2%E7%BD%97%E5%92%96%E5%95%A1%E9%A6%86/id1651074400">Apple Podcasts</a>
+    <a href="https://podcasts.google.com/feed/aHR0cHM6Ly9hbmNob3IuZm0vcy9jNDdmMjAwMC9wb2RjYXN0L3Jzcw">Google Podcasts</a>
+    <a href="https://open.spotify.com/episode/3TLNhjnz4ZY5bh8wKGPiDU?si=e4b65473a1ca4c99">Spotify</a>
+</p>
 <p>{{ movies|length }} Titles</p>
 {% if current_user.is_authenticated %}
 <form method="post">
     Name <input type="text" name="title" autocomplete="off" required>
-    Year <input type="text" name="year" autocomplete="off" required>
+    Episode <input type="text" name="episode" autocomplete="off" required>
     <input class="btn" type="submit" name="submit" value="Add">
 </form>
 {% endif %}
 <ul class="movie-list">
     {% for movie in movies %}
-    <li>{{ movie.title }} - {{ movie.year }}
+    <li>{{ movie.episode }}: {{ movie.title }} 
         <span class="float-right">
             {% if current_user.is_authenticated %}
             <a class="btn" href="{{ url_for('edit', movie_id=movie.id) }}">Edit</a>
@@ -19,10 +33,10 @@
                 <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
             </form>
             {% endif %}
-            <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank" title="Find this movie on IMDb">IMDb</a>
+            <a class="spotify" href="https://open.spotify.com/search/{{ user.name }}%20{{ movie.title }}" target="_blank" title="Find this episode on Spotify">Spotify</a>
+            <a class="google" href="https://podcasts.google.com/search/{{ user.name }}%20{{ movie.title }}" target="_blank" title="Find this episode on Google">Google</a>
         </span>
     </li>
     {% endfor %}
 </ul>
-<img alt="cafe" class="cafe" src="{{ url_for('static', filename='images/cafe.png') }}" title="cafe">
 {% endblock %}

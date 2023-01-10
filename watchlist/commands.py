@@ -24,14 +24,16 @@ def forge():
     # 全局的两个变量移动到这个函数内
     name = '波罗咖啡馆'
     movies = [
-        {'title': 'My Neighbor Totoro', 'year': '1988'},
-        {'title': 'Dead Poets Society', 'year': '1989'},
+        {'title': '欧洲推理之旅', 'episode': 'Vol.1'},
+        {'title': '美国推理之旅', 'episode': 'Vol.2'},
+        {'title': '日本推理影视', 'episode': 'Vol.3'},
+        {'title': '两位柯学家の探索发现', 'episode': 'Vol.4'},
     ]
 
     user = User(name=name)
     db.session.add(user)
     for m in movies:
-        movie = Movie(title=m['title'], year=m['year'])
+        movie = Movie(title=m['title'], episode=m['episode'])
         db.session.add(movie)
 
     db.session.commit()
