@@ -14,7 +14,7 @@ else:
     prefix = 'sqlite:////'
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dev'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev')
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -23,10 +23,20 @@ login_manager = LoginManager(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = User.query.get(int(user_id))
+    # user = User.query.get(int(user_id))
+    user = db.session().get(User, int(user_id))
     return user
 
 login_manager.login_view = 'login'
+
+@app.cli.command()
+@click.option('--drop', is_flag=True, help='Create after drop.')
+def initdb(drop):
+    """Initialize the database."""
+    if drop:
+        db.drop_all()
+    db.create_all()
+    click.echo('Initialized database.')
 
 # run flask forge to clear and create database 
 @app.cli.command()
@@ -119,7 +129,8 @@ def index():
 @app.route('/movie/edit/<int:movie_id>', methods=['GET', 'POST'])
 @login_required
 def edit(movie_id):
-    movie = Movie.query.get_or_404(movie_id)
+    # movie = Movie.query.get_or_404(movie_id)
+    movie = db.session.get(Movie, movie_id)
 
     if request.method == 'POST':
         title = request.form['title']
@@ -141,7 +152,9 @@ def edit(movie_id):
 @app.route('/movie/delete/<int:movie_id>', methods=['POST'])
 @login_required
 def delete(movie_id):
-    movie = Movie.query.get_or_404(movie_id)
+    # movie = Movie.query.get_or_404(movie_id)
+    movie = db.session().get(Movie, movie_id)
+
     db.session.delete(movie)
     db.session.commit()
     flash('Item deleted.')

@@ -29,5 +29,12 @@
     <footer>
         <small>&copy; 2023 <a href="https://anchor.fm/poirot-cafe">波罗咖啡馆</a></small>
     </footer>
+    {% with messages=get_flashed_messages() %}  {# 使用get_flashed_messages()方法获取消息#}
+        {% if messages %}      
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
