@@ -31,7 +31,7 @@ def index():
 @app.route('/movie/edit/<int:movie_id>', methods=['GET', 'POST'])
 @login_required
 def edit(movie_id):
-    movie = Movie.query.get_or_404(movie_id)
+    movie = db.session.get(Movie, movie_id)
 
     if request.method == 'POST':
         title = request.form['title']
@@ -53,7 +53,7 @@ def edit(movie_id):
 @app.route('/movie/delete/<int:movie_id>', methods=['POST'])
 @login_required
 def delete(movie_id):
-    movie = Movie.query.get_or_404(movie_id)
+    movie = db.session().get(Movie, movie_id)
     db.session.delete(movie)
     db.session.commit()
     flash('Item deleted.')

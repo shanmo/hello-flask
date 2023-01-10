@@ -12,6 +12,7 @@ class WatchlistTestCase(unittest.TestCase):
             TESTING=True,
             SQLALCHEMY_DATABASE_URI='sqlite:///:memory:'
         )
+        app.app_context().push()
         db.create_all()
 
         user = User(name='Test', username='test')
@@ -49,7 +50,7 @@ class WatchlistTestCase(unittest.TestCase):
     def test_index_page(self):
         response = self.client.get('/')
         data = response.get_data(as_text=True)
-        self.assertIn('Test\'s Watchlist', data)
+        self.assertIn('Testの播客', data)
         self.assertIn('Test Movie Title', data)
         self.assertEqual(response.status_code, 200)
 
