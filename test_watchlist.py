@@ -1,7 +1,9 @@
-# -*- coding: utf-8 -*-
 import unittest
 
-from app import app, db, Movie, User, forge, initdb
+from watchlist import app, db
+from watchlist.models import Movie, User
+from watchlist.commands import forge, initdb
+
 
 class WatchlistTestCase(unittest.TestCase):
 
@@ -10,7 +12,6 @@ class WatchlistTestCase(unittest.TestCase):
             TESTING=True,
             SQLALCHEMY_DATABASE_URI='sqlite:///:memory:'
         )
-        app.app_context().push()
         db.create_all()
 
         user = User(name='Test', username='test')
@@ -48,7 +49,7 @@ class WatchlistTestCase(unittest.TestCase):
     def test_index_page(self):
         response = self.client.get('/')
         data = response.get_data(as_text=True)
-        self.assertIn('Testの播客', data)
+        self.assertIn('Test\'s Watchlist', data)
         self.assertIn('Test Movie Title', data)
         self.assertEqual(response.status_code, 200)
 
