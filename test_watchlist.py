@@ -17,7 +17,7 @@ class WatchlistTestCase(unittest.TestCase):
 
         user = User(name='Test', username='test')
         user.set_password('123')
-        movie = Movie(title='Test Movie Title', year='2019')
+        movie = Movie(title='Test Movie Title', episode='2019')
         db.session.add_all([user, movie])
         db.session.commit()
 
@@ -147,7 +147,7 @@ class WatchlistTestCase(unittest.TestCase):
 
         response = self.client.post('/', data=dict(
             title='New Movie',
-            year='2019'
+            episode='2019'
         ), follow_redirects=True)
         data = response.get_data(as_text=True)
         self.assertIn('Item created.', data)
@@ -155,7 +155,7 @@ class WatchlistTestCase(unittest.TestCase):
 
         response = self.client.post('/', data=dict(
             title='',
-            year='2019'
+            episode='2019'
         ), follow_redirects=True)
         data = response.get_data(as_text=True)
         self.assertNotIn('Item created.', data)
@@ -163,7 +163,7 @@ class WatchlistTestCase(unittest.TestCase):
 
         response = self.client.post('/', data=dict(
             title='New Movie',
-            year=''
+            episode=''
         ), follow_redirects=True)
         data = response.get_data(as_text=True)
         self.assertNotIn('Item created.', data)
@@ -180,7 +180,7 @@ class WatchlistTestCase(unittest.TestCase):
 
         response = self.client.post('/movie/edit/1', data=dict(
             title='New Movie Edited',
-            year='2019'
+            episode='2019'
         ), follow_redirects=True)
         data = response.get_data(as_text=True)
         self.assertIn('Item updated.', data)
@@ -188,7 +188,7 @@ class WatchlistTestCase(unittest.TestCase):
 
         response = self.client.post('/movie/edit/1', data=dict(
             title='',
-            year='2019'
+            episode='2019'
         ), follow_redirects=True)
         data = response.get_data(as_text=True)
         self.assertNotIn('Item updated.', data)
@@ -196,7 +196,7 @@ class WatchlistTestCase(unittest.TestCase):
 
         response = self.client.post('/movie/edit/1', data=dict(
             title='New Movie Edited Again',
-            year=''
+            episode=''
         ), follow_redirects=True)
         data = response.get_data(as_text=True)
         self.assertNotIn('Item updated.', data)
