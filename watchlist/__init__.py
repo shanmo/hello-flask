@@ -39,4 +39,5 @@ def inject_user():
     return dict(user=user)
 
 
-from watchlist import views, errors, commands
+from watchlist import views, errors, commands 
+from watchlist.models import User 
