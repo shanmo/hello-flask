@@ -12,13 +12,13 @@ def index():
             return redirect(url_for('index'))
 
         title = request.form['title']
-        year = request.form['year']
+        episode = request.form['episode']
 
-        if not title or not year or len(year) != 4 or len(title) > 60:
+        if not title or not episode or len(episode) < 4 or len(title) < 1:
             flash('Invalid input.')
             return redirect(url_for('index'))
 
-        movie = Movie(title=title, year=year)
+        movie = Movie(title=title, episode=episode)
         db.session.add(movie)
         db.session.commit()
         flash('Item created.')
@@ -35,14 +35,14 @@ def edit(movie_id):
 
     if request.method == 'POST':
         title = request.form['title']
-        year = request.form['year']
+        episode = request.form['episode']
 
-        if not title or not year or len(year) != 4 or len(title) > 60:
+        if not title or not episode or len(episode) < 4 or len(title) < 1:
             flash('Invalid input.')
             return redirect(url_for('edit', movie_id=movie_id))
 
         movie.title = title
-        movie.year = year
+        movie.episode = episode
         db.session.commit()
         flash('Item updated.')
         return redirect(url_for('index'))
