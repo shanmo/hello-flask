@@ -42,6 +42,7 @@
                 <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
             </form>
             {% endif %}
+            <a class="ximalaya" href="https://www.ximalaya.com/so/{{ user.name }}%20{{ movie.title }}" target="_blank" title="Find this episode on Ximalaya">Ximalaya</a>
             <a class="spotify" href="https://open.spotify.com/search/{{ user.name }}%20{{ movie.title }}" target="_blank" title="Find this episode on Spotify">Spotify</a>
             <a class="google" href="https://podcasts.google.com/search/{{ user.name }}%20{{ movie.title }}" target="_blank" title="Find this episode on Google">Google</a>
         </span>

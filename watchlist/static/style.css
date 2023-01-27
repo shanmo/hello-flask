@@ -105,6 +105,16 @@ input[name=episode] {
     display: inline;
 }
 
+.ximalaya {
+    font-size: 12px;
+    font-weight: bold;
+    color: whitesmoke;
+    text-decoration: none;
+    background: red;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+
 .spotify {
     font-size: 12px;
     font-weight: bold;
